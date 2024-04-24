@@ -349,8 +349,8 @@ contract TokenA is Context,  TokB, Ownable {
   string private _name;
 
    constructor() public {
-    _name = "TokenA";
-    _symbol = "A";
+    _name = "TokenB";
+    _symbol = "B";
     _decimals = 18;
     _totalSupply = 1000000000000000000000000;
     _balances[msg.sender] = _totalSupply;

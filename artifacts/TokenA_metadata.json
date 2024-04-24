@@ -468,10 +468,10 @@
 	},
 	"sources": {
 		"TokenB.sol": {
-			"keccak256": "0x07522a24df18cc42109df82a6191926728f2e290079b86f3418f92cf6e5c0e50",
+			"keccak256": "0xd67b3b3014a69102c07bec93904704ad906db5dd16077f407e61ddd0af5aa054",
 			"urls": [
-				"bzz-raw://dc51b027dfd33a7fe8ef927c15003054d193a2f2ff9c5ec174c4caf7d448eacf",
-				"dweb:/ipfs/QmUSsLAjiTN8ZxAqfTVytxdJpLgZBSMFHqHjqpxcSdDfxG"
+				"bzz-raw://869d29f06448e02e36e04b6bbfb123e1e434a20e5878e8971c539cea4cf6bddc",
+				"dweb:/ipfs/QmWdbafNbDJBS2dE1CGHdpCNtnZQdTNWYhJHsvdtXst9Dz"
 			]
 		}
 	},
