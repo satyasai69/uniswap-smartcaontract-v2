@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.5.16+commit.9c3226ce"
+		"version": "0.5.17+commit.d19bba13"
 	},
 	"language": "Solidity",
 	"output": {
@@ -15,7 +15,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"TokenB.sol": "SafeMath"
+			"kcbreward.sol": "SafeMath"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -26,11 +26,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"TokenB.sol": {
-			"keccak256": "0xd67b3b3014a69102c07bec93904704ad906db5dd16077f407e61ddd0af5aa054",
+		"kcbreward.sol": {
+			"keccak256": "0x112df1c09207e46636533fc5f793e46d1ccf407848b8d1a30fd8ade7b5e040c1",
 			"urls": [
-				"bzz-raw://869d29f06448e02e36e04b6bbfb123e1e434a20e5878e8971c539cea4cf6bddc",
-				"dweb:/ipfs/QmWdbafNbDJBS2dE1CGHdpCNtnZQdTNWYhJHsvdtXst9Dz"
+				"bzz-raw://ae14de1143e3fb460ce7ce7fca2da4bcc845b1704aacea07c632386747e9e503",
+				"dweb:/ipfs/QmY7sKYtRFw9KsVjHgNDFcPsJUZ21YHKcVeGh18pzVTd4C"
 			]
 		}
 	},

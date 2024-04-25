@@ -732,10 +732,10 @@
 	},
 	"sources": {
 		"v2-core-master/contracts/interfaces/IUniswapV2Pair.sol": {
-			"keccak256": "0xb5335a02039d9e479763f744ff0e4cd844f19f9b052a1ced851e3f739cb80bbe",
+			"keccak256": "0x3f1b8c30931c8bc733412401e275626e1a3e61457e4d8ec81df527798f65ba3b",
 			"urls": [
-				"bzz-raw://de29ab7feec49540d5020f5f3821b463b5ffdebc8064e333ed02251f80bcc58e",
-				"dweb:/ipfs/QmdHVM35nm9mHmMZk5nRi4ARqrVS7ABFVtZ1JqDof7qFFq"
+				"bzz-raw://870e67306940032f99b810a5598eeeba8486e16f95388dad7e412ab844987f6d",
+				"dweb:/ipfs/QmTk7pdx6jpfWRuYVzETmZSVLPJahMZcMGyv1d6YaXP6Rt"
 			]
 		}
 	},

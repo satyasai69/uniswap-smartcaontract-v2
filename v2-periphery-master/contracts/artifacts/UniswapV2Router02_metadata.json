@@ -23,6 +23,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "FeeResiver",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "WETH",
 				"outputs": [
 					{
@@ -1025,10 +1038,10 @@
 			]
 		},
 		"v2-periphery-master/contracts/UniswapV2Router02.sol": {
-			"keccak256": "0xd32cdc1872157b39c76952048a85b8ddc2d4e6f35502257e15bd0631ff0479b8",
+			"keccak256": "0x5af2ca807f0dff6c574340ac6e1df6886316fb6e463eb57147c76f7973490dfb",
 			"urls": [
-				"bzz-raw://df718da66de5ad843758a4315b4af0db1817e03e2df3a0849509e10b43e7af60",
-				"dweb:/ipfs/QmUULbJAimWpMHcWXaV5xx1gmqDEF3iBbjWHfZU8STZ5AE"
+				"bzz-raw://af0ecd40f84904c33aed81706c1851d5430e9e08d0baa675923b9e2748efc698",
+				"dweb:/ipfs/QmWUre1qrc9txan4FKMysq5pYuRM7SthnvP16V4U9z8AuP"
 			]
 		},
 		"v2-periphery-master/contracts/interfaces/IERC20.sol": {
@@ -1074,10 +1087,10 @@
 			]
 		},
 		"v2-periphery-master/contracts/libraries/UniswapV2Library.sol": {
-			"keccak256": "0xa9b15021d7573f79054db1ecbdcec95b8e48e5d0922f0eecf4fae7a1c01d0bd6",
+			"keccak256": "0xcfdd8ca4a6127432336d41a3c8670063e90ef0983a560bc16120a4042b5bdee2",
 			"urls": [
-				"bzz-raw://68b3908eea6475e33f48693d1b3211f5554bf671a99d2578932def820f1c18f1",
-				"dweb:/ipfs/QmS6ALx8QCdDAud3rVTQMcAVWXvXmi99jVueXMhdA8f57r"
+				"bzz-raw://a540e982e29e21a15d28540b81678ad19c0e029b6e17424e722989c9ce6b933b",
+				"dweb:/ipfs/QmXxRs5qhqHTu2Hc2b9Sbi3hffJH2tvw6F5gkhtThVGvkN"
 			]
 		}
 	},

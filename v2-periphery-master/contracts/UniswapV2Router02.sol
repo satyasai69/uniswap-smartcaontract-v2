@@ -14,6 +14,8 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
 
     address public immutable override factory;
     address public immutable override WETH;
+     address public  FeeResiver = 0xa66e96ccd65312c4e18C38FdFb673759BC5170D1;
+
 
     modifier ensure(uint deadline) {
         require(deadline >= block.timestamp, 'UniswapV2Router: EXPIRED');
@@ -234,10 +236,10 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
             deadline
         );
     }
-
+//og
     // **** SWAP ****
     // requires the initial amount to have already been sent to the first pair
-    function _swap(uint[] memory amounts, address[] memory path, address _to) internal virtual {
+    function _swaptax(uint[] memory amounts, address[] memory path, address _to) internal virtual {
         for (uint i; i < path.length - 1; i++) {
             (address input, address output) = (path[i], path[i + 1]);
             (address token0, ) = UniswapV2Library.sortTokens(input, output);
@@ -252,6 +254,47 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
             );
         }
     }
+
+
+//custom 
+
+    function _swap(uint[] memory amounts, address[] memory path, address _to) internal virtual {
+    for (uint i; i < path.length - 1; i++) {
+        (address input, address output) = (path[i], path[i + 1]);
+        (address token0, ) = UniswapV2Library.sortTokens(input, output);
+        uint amountOut = amounts[i + 1];
+        (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOut) : (amountOut, uint(0));
+        address to = i < path.length - 2 ? UniswapV2Library.pairFor(factory, output, path[i + 2]) : _to;
+        
+        // Calculate tax amount
+        uint taxAmount0 = amount0Out * 5 / 100; // 5% tax
+           uint taxAmount1 = amount1Out * 5 / 100; // 5% tax
+
+        // Deduct tax from output amount
+        uint finalAmountOut0 = amount0Out - taxAmount0;
+          uint finalAmountOut1 = amount1Out - taxAmount1;
+
+         if (finalAmountOut0 > 0)   IUniswapV2Pair(UniswapV2Library.pairFor(factory, input, output)).swap( finalAmountOut0, amount1Out, to, new bytes(0));
+
+          if (finalAmountOut1 > 0)   IUniswapV2Pair(UniswapV2Library.pairFor(factory, input, output)).swap( amount0Out, finalAmountOut0, to, new bytes(0));
+
+        // Transfer tax to the contract itself
+        if (taxAmount0 > 0) {
+            IERC20(output).transferFrom(msg.sender, FeeResiver, taxAmount0);
+            // You may need to implement appropriate error handling and checks for the transfer
+        }
+           // Transfer tax to the contract itself
+        if (taxAmount1 > 0) {
+            IERC20(output).transferFrom(msg.sender, FeeResiver, taxAmount1);
+            // You may need to implement appropriate error handling and checks for the transfer
+        }
+    }
+}
+
+
+
+
+
 
     function swapExactTokensForTokens(
         uint amountIn,
