@@ -19,10 +19,13 @@
 
 pragma solidity  ^0.4.18;
 
-contract WETH9 {
-    string public name = "Wrapped Ether";
-    string public symbol = "WETH";
+contract WKBC {
+    string public name = "Wrapped KBC";
+    string public symbol = "WKBC";
     uint8 public decimals = 18;
+
+    // uint public taxRate; // Tax rate in percentage (e.g., 5 for 5%)
+   //  address public admin; // Address that receives the tax
 
     event Approval(address indexed src, address indexed guy, uint wad);
     event Transfer(address indexed src, address indexed dst, uint wad);
@@ -32,21 +35,64 @@ contract WETH9 {
     mapping(address => uint) public balanceOf;
     mapping(address => mapping(address => uint)) public allowance;
 
+  /*  constructor (address _admin) {
+       admin = _admin;
+    }
+*/
     function() public payable {
         deposit();
     }
 
     function deposit() public payable {
+      
         balanceOf[msg.sender] += msg.value;
-        Deposit(msg.sender, msg.value);
+      
+       Deposit(msg.sender, msg.value);
+      
+        
     }
+
+    /*    function deposittax() public payable {
+      uint tax = msg.value * 5/100 ;
+      uint finalAmount = msg.value - tax;
+       // balanceOf[msg.sender] += msg.value;
+       balanceOf[msg.sender] += finalAmount;
+       // Deposit(msg.sender, msg.value);
+       Deposit(msg.sender, finalAmount);
+        admin.transfer(tax); // Send tax amount to admin
+    }
+*/
+
+
+
+
 
     function withdraw(uint wad) public {
         require(balanceOf[msg.sender] >= wad);
         balanceOf[msg.sender] -= wad;
-        msg.sender.transfer(wad);
-        Withdrawal(msg.sender, wad);
+       
+        
+       msg.sender.transfer(wad);
+         Withdrawal(msg.sender, wad);
+     
     }
+
+
+/*
+         function withdrawtax(uint wad) public {
+        require(balanceOf[msg.sender] >= wad);
+        balanceOf[msg.sender] -= wad;
+        uint taxwad = wad  * 5/100 ;
+        uint finalwad = wad - taxwad;
+        msg.sender.transfer(finalwad);
+       // msg.sender.transfer(wad);
+       //  Withdrawal(msg.sender, wad);
+        Withdrawal(msg.sender, finalwad);
+         admin.transfer(taxwad); // Send tax amount to admin
+    }
+*/
+
+
 
     function totalSupply() public view returns (uint) {
         return this.balance;

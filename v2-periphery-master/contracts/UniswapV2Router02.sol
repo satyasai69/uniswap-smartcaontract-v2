@@ -292,6 +292,9 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
 }
 
 
+   
+
+
 
 
 
@@ -332,7 +335,9 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         _swap(amounts, path, to);
     }
 
-    function swapExactETHForTokens(
+
+
+  function swapExactETHForTokens(
         uint amountOutMin,
         address[] calldata path,
         address to,
@@ -344,7 +349,19 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         IWETH(WETH).deposit{value: amounts[0]}();
         assert(IWETH(WETH).transfer(UniswapV2Library.pairFor(factory, path[0], path[1]), amounts[0]));
         _swap(amounts, path, to);
-    }
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
 
     function swapTokensForExactETH(
         uint amountOut,
@@ -366,6 +383,18 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         IWETH(WETH).withdraw(amounts[amounts.length - 1]);
         TransferHelper.safeTransferETH(to, amounts[amounts.length - 1]);
     }
+
+
+
+
+   
+
+
+
+
+
+
+
 
     function swapExactTokensForETH(
         uint amountIn,
@@ -403,7 +432,7 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         // refund dust eth, if any
         if (msg.value > amounts[0]) TransferHelper.safeTransferETH(msg.sender, msg.value - amounts[0]);
     }
-
+    // OG
     // **** SWAP (supporting fee-on-transfer tokens) ****
     // requires the initial amount to have already been sent to the first pair
     function _swapSupportingFeeOnTransferTokens(address[] memory path, address _to) internal virtual {
@@ -425,6 +454,102 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
             pair.swap(amount0Out, amount1Out, to, new bytes(0));
         }
     }
+
+
+// cutsum
+ /*
+
+     function _swapSupportingFeeOnTransferTokensc(address[] memory path, address _to) internal virtual {
+        for (uint i; i < path.length - 1; i++) {
+            (address input, address output) = (path[i], path[i + 1]);
+            (address token0, ) = UniswapV2Library.sortTokens(input, output);
+            IUniswapV2Pair pair = IUniswapV2Pair(UniswapV2Library.pairFor(factory, input, output));
+            uint amountInput;
+            uint amountOutput;
+   
+            {
+                // scope to avoid stack too deep errors
+                (uint reserve0, uint reserve1, ) = pair.getReserves();
+                (uint reserveInput, uint reserveOutput) = input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+                amountInput = IERC20(input).balanceOf(address(pair)).sub(reserveInput);
+                amountOutput = UniswapV2Library.getAmountOut(amountInput, reserveInput, reserveOutput);
+            }
+            (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOutput) : (amountOutput, uint(0));
+               address to = i < path.length - 2 ? UniswapV2Library.pairFor(factory, output, path[i + 2]) : _to;
+
+                                 // Calculate tax amount
+             uint taxAmount0 = amount0Out * 5 / 100; // 5% tax
+              uint taxAmount1 = amount1Out * 5 / 100; // 5% tax
+
+             // Deduct tax from output amount
+             uint finalAmountOut0 = amount0Out - taxAmount0;
+             uint finalAmountOut1 = amount1Out - taxAmount1;
+
+
+         
+
+            if (finalAmountOut0 > 0)  pair.swap(finalAmountOut0, amount1Out, to, new bytes(0));
+            if (finalAmountOut1 > 0)  pair.swap(amount0Out, finalAmountOut1, to, new bytes(0));
+          //  pair.swap(amount0Out, amount1Out, to, new bytes(0));
+
+
+           // Transfer tax to the contract itself
+        if (taxAmount0 > 0) {
+            IERC20(output).transferFrom(msg.sender, FeeResiver, taxAmount0);
+            // You may need to implement appropriate error handling and checks for the transfer
+        }
+           // Transfer tax to the contract itself
+        if (taxAmount1 > 0) {
+            IERC20(output).transferFrom(msg.sender, FeeResiver, taxAmount1);
+            // You may need to implement appropriate error handling and checks for the transfer
+        }
+        }
+    }
+         */
+
+
+/*
+
+
+   function _swapSupportingFeeOnTransferTokens(address[] memory path, address _to) internal virtual {
+    for (uint i; i < path.length - 1; i++) {
+        (address input, address output) = (path[i], path[i + 1]);
+        (address token0, ) = UniswapV2Library.sortTokens(input, output);
+        IUniswapV2Pair pair = IUniswapV2Pair(UniswapV2Library.pairFor(factory, input, output));
+        uint amountInput;
+        uint amountOutput;
+        {
+            // scope to avoid stack too deep errors
+            (uint reserve0, uint reserve1, ) = pair.getReserves();
+            (uint reserveInput, uint reserveOutput) = input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+            amountInput = IERC20(input).balanceOf(address(pair)).sub(reserveInput);
+            amountOutput = UniswapV2Library.getAmountOut(amountInput, reserveInput, reserveOutput);
+        }
+                address to = i < path.length - 2 ? UniswapV2Library.pairFor(factory, output, path[i + 2]) : _to;
+        // Calculate tax amount (5%)
+        uint taxAmount = amountOutput * 5 / 100;
+
+        // Deduct tax from the output amount
+        uint finalAmountOutput = amountOutput - taxAmount;
+
+        (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), finalAmountOutput) : (finalAmountOutput, uint(0));
+       //  address to = i < path.length - 2 ? UniswapV2Library.pairFor(factory, output, path[i + 2]) : _to;
+        pair.swap(amount0Out, amount1Out, to, new bytes(0));
+
+        // Send tax amount to the designated address
+        TransferHelper.safeTransfer(output, FeeResiver, taxAmount);
+    }
+}
+*/
+
+
+
+
+
+
+
+
+
 
     function swapExactTokensForTokensSupportingFeeOnTransferTokens(
         uint amountIn,
@@ -455,6 +580,7 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
     ) external payable virtual override ensure(deadline) {
         require(path[0] == WETH, 'UniswapV2Router: INVALID_PATH');
         uint amountIn = msg.value;
+       // IWETH(WETH).deposit{value: amountIn}();
         IWETH(WETH).deposit{value: amountIn}();
         assert(IWETH(WETH).transfer(UniswapV2Library.pairFor(factory, path[0], path[1]), amountIn));
         uint balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
@@ -482,7 +608,8 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         _swapSupportingFeeOnTransferTokens(path, address(this));
         uint amountOut = IERC20(WETH).balanceOf(address(this));
         require(amountOut >= amountOutMin, 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT');
-        IWETH(WETH).withdraw(amountOut);
+      //  IWETH(WETH).withdraw(amountOut);
+       IWETH(WETH).withdraw(amountOut);
         TransferHelper.safeTransferETH(to, amountOut);
     }
 
